@@ -52,10 +52,11 @@ const ChatField = ({ handleChatSave }) => {
             <div className="chat-field" ref={chatFieldRef}>
                 <div className="app-title">Bot AI</div>
                 <div className="app-hero-section">
+                    <img src={AiIcon} alt="logo-ai" className="logo-ai"/>
                     <div className="hero-section-text">How Can I Help You Today?</div>
-                    <img src={AiIcon} alt="logo-ai" />
+                    
                 </div>
-                <div className="conversation-list">
+                <div className="chat-conversation-list">
                     {activeConversation.map((conversation, index) => (
                         <div key={index} className="qna-item">
                                 <QnACard key={index + 1} question={conversation.question} isQuestion={true} />

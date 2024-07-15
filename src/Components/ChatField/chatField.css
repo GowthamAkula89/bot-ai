@@ -1,9 +1,11 @@
 .chat-qna-response{
+    flex: 1;
     height: 100vh;
     background: linear-gradient(180deg, rgba(215, 199, 244, 0.2) 0%, rgba(151, 133, 186, 0.2) 100%);
+    padding: 25px;
 }
 .chat-field{
-    width: 85vw;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap:25px;
@@ -19,6 +21,10 @@
 }
 .app-hero-section{
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
 .hero-section-text{
     font-size: 28px;
@@ -27,7 +33,11 @@
     text-align: center;
     color: #000000;
 }
-.conversation-list{
+.logo-ai{
+    height: 45px;
+    width: 45px;
+}
+.chat-conversation-list{
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -40,16 +50,19 @@
 .input-field{
     display: flex;
     gap: 15px;
-    padding: 0 32px;
     position: fixed;
     bottom: 25px;
+    width: 82%;
 }
 .input-field > *{
     height: 41px;
 }
 .input-value{
+    flex: 1;
     width: 852px;
+    padding-left: 15px;
     border: none;
+    outline: none;
     border-radius: 8px;
 }
 .action-button{
@@ -63,24 +76,32 @@
 .action-button:hover{
     cursor: pointer;
 }
-@media screen and (max-width: 1285px){
-    .input-value {
-        width: 689px;
+@media screen and (max-width: 1280px){
+    .input-field{
+        width: 90%;
     }
+    
 }
-@media screen and (max-width: 989px){
-    .input-value {
+@media screen and (max-width: 980px){
+    /* .input-value {
         width: 456px;
-    }
+    } */
     .chat-field{
-        width: 97vw;
+        width: 90vw;
     }
+    
 }
 @media screen and (max-width: 789px) {
-    .input-value {
+    /* .input-value {
         width: 189px;
-    }
+    } */
     .action-button{
         width: 56.86px;
+    }
+    .input-field{
+        padding: 0;
+    }
+    .chat-qna-response{
+        padding: 15px;
     }
 }

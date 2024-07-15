@@ -17,7 +17,7 @@
 .menu-navbar{
     display: flex;
     justify-content: space-between; 
-    padding: 0 12px;
+    padding: 12px;
 }
 .new-chat-text{
     font-size: 20px;
@@ -58,17 +58,26 @@
     justify-content: space-around;
 }
 .menu-mobile-view{
+    width: 20vw;
     position: absolute;
     background-color: #ffffff;
     height: 100vh;
     z-index: 1;
 }
-@media screen and (max-width: 789px) {
+@media screen and (max-width: 1280px) {
     .menu{
         display: none;
     }
     .menu-mobile-screen{
         display: block;
         background: linear-gradient(180deg, rgba(215, 199, 244, 0.2) 0%, rgba(151, 133, 186, 0.2) 100%);
+    }
+    .menu-mobile-view{
+        width: 25vw;
+    }
+}
+@media screen and (max-width: 680px){
+    .menu-mobile-view{
+        width: 50vw;
     }
 }

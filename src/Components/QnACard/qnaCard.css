@@ -1,17 +1,16 @@
 .qna-card{
+    height: 95px;
     display: flex;
     align-items: center;
     padding: 15px;
-    margin:0 28.31px;
     border-radius: 20px;
     background: #D7C7F421;
-    box-shadow: 2px 2px 5px rgb(129, 123, 123);
     gap: 15px;
 }
 .qna-section{
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 .qna-user{
     font-size: 16px;

@@ -1,0 +1,76 @@
+.chat-qna-response{
+    height: 100vh;
+    background: linear-gradient(180deg, rgba(215, 199, 244, 0.2) 0%, rgba(151, 133, 186, 0.2) 100%);
+}
+.chat-field{
+    width: 85vw;
+    display: flex;
+    flex-direction: column;
+    gap:25px;
+    height: 89%;
+    overflow-y: scroll;
+}
+.app-title{
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 32.17px;
+    text-align: left;
+    color: #9785BA;
+}
+.app-hero-section{
+    text-align: center;
+}
+.hero-section-text{
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 32.17px;
+    text-align: center;
+    color: #000000;
+}
+.input-field{
+    display: flex;
+    gap: 15px;
+    padding: 0 32px;
+    position: fixed;
+    bottom: 25px;
+}
+.input-field > *{
+    height: 41px;
+}
+.input-value{
+    width: 852px;
+    border: none;
+    border-radius: 8px;
+}
+.action-button{
+    width: 73.82px;
+    font-size: 20px;
+    font-weight: 400;
+    background-color: #D7C7F4;
+    border-radius: 5px;
+    border: none;
+}
+.action-button:hover{
+    cursor: pointer;
+}
+@media screen and (max-width: 1285px){
+    .input-value {
+        width: 689px;
+    }
+}
+@media screen and (max-width: 989px){
+    .input-value {
+        width: 456px;
+    }
+    .chat-field{
+        width: 97vw;
+    }
+}
+@media screen and (max-width: 789px) {
+    .input-value {
+        width: 189px;
+    }
+    .action-button{
+        width: 56.86px;
+    }
+}

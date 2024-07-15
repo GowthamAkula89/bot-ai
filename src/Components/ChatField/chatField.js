@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import "./chatField.css";
 import { DataContext } from "../../ContextAPI/dataContext";
 import AiIcon from "../../Assets/ai-icon.png";
+import QnACard from "../QnACard/qnaCard";
 
 const ChatField = ({ handleChatSave }) => {
     const { activeConversation, setActiveConversation } = useContext(DataContext);
@@ -54,11 +55,18 @@ const ChatField = ({ handleChatSave }) => {
                     <div className="hero-section-text">How Can I Help You Today?</div>
                     <img src={AiIcon} alt="logo-ai" />
                 </div>
-
-                {activeConversation.map((conversation, index) => (
-                    <div key={index}>
-                    </div>
-                ))}
+                <div className="conversation-list">
+                    {activeConversation.map((conversation, index) => (
+                        <div key={index} className="qna-item">
+                                <QnACard key={index + 1} question={conversation.question} isQuestion={true} />
+                                <QnACard 
+                                    key={index + 2} 
+                                    answer={conversation.answer} 
+                                    index={index} 
+                                />
+                        </div>
+                    ))}
+                </div>
             </div>
             <form className="input-field" onSubmit={handleSubmit}>
                 <input

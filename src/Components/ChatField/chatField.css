@@ -27,6 +27,16 @@
     text-align: center;
     color: #000000;
 }
+.conversation-list{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.qna-item{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 .input-field{
     display: flex;
     gap: 15px;

@@ -1,0 +1,74 @@
+.new-chat-btn{
+    display: flex;
+    justify-content: space-between;
+    background-color: #D7C7F4;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+}
+.menu{
+    width: 208px;
+    height: 47px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+.menu-navbar{
+    display: flex;
+    justify-content: space-between; 
+    padding: 0 12px;
+}
+.new-chat-text{
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 22.98px;
+    text-align: left;
+
+}
+.menu-mobile-screen{
+    display: none;
+}
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 5px 0;
+}
+.edit-icon{
+    width: 24px;
+    height: 24px;
+}
+.conversation-list{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 15px;
+}
+.conversation-item{
+    width: 175.16px;
+    height: 39px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18.38px;
+    background-color: #D7C7F4;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.menu-mobile-view{
+    position: absolute;
+    background-color: #ffffff;
+    height: 100vh;
+    z-index: 1;
+}
+@media screen and (max-width: 789px) {
+    .menu{
+        display: none;
+    }
+    .menu-mobile-screen{
+        display: block;
+        background: linear-gradient(180deg, rgba(215, 199, 244, 0.2) 0%, rgba(151, 133, 186, 0.2) 100%);
+    }
+}

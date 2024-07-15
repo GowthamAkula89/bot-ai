@@ -1,0 +1,10 @@
+.chatbot-page{
+    height: 100%;
+    display: flex;
+}
+@media screen and (max-width: 989px){
+    .chatbot-page{
+        flex-direction: column;
+        position: relative;
+    }
+}

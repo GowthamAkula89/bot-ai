@@ -3,13 +3,14 @@ import "./chatField.css";
 import { DataContext } from "../../ContextAPI/dataContext";
 import AiIcon from "../../Assets/ai-icon.png";
 import QnACard from "../QnACard/qnaCard";
-import { HfInference } from "@huggingface/inference";
+import generateText from "../../apis/generateText";
+import extractGitCommands from "../../apis/generateGitCommands";
 
 const ChatField = ({ handleChatSave }) => {
     const { activeConversation, setActiveConversation } = useContext(DataContext);
     const [question, setQuestion] = useState("");
     const chatFieldRef = useRef(null);
-
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
         const savedActiveConversation = JSON.parse(localStorage.getItem("activeConversation")) || [];
         setActiveConversation(savedActiveConversation);
@@ -26,56 +27,36 @@ const ChatField = ({ handleChatSave }) => {
         }
     };
 
-    const generateText = async (question) => {
-        const inference = new HfInference("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");
-        const prompt = `Convert the following query to an appropriate Git command:\nQuery: ${question}\nGit command:`;
-        let fullResponse = "";
-
-        for await (const chunk of inference.chatCompletionStream({
-            model: "meta-llama/Meta-Llama-3-8B-Instruct",
-            messages: [{ role: "user", content: prompt }],
-            max_tokens: 500,
-        })) {
-            const content = chunk.choices[0]?.delta?.content || "";
-            fullResponse += content;
-        }
-        return fullResponse.trim();
-    };
-
-    const extractGitCommands = async (text) => {
-        const inference = new HfInference("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");
-        const prompt = `Extract only the git commands from the following text:\n${text}\nGit commands:`;
-        let fullResponse = "";
-
-        for await (const chunk of inference.chatCompletionStream({
-            model: "meta-llama/Meta-Llama-3-8B-Instruct",
-            messages: [{ role: "user", content: prompt }],
-            max_tokens: 500,
-        })) {
-            const content = chunk.choices[0]?.delta?.content || "";
-            fullResponse += content;
-        }
-        return fullResponse.trim().split("\n");
-    };
-
     const handleSubmit = async (e) => {
+        setIsLoading(true);
         e.preventDefault();
         if (question.trim() !== "") {
             const generatedText = await generateText(question);
             console.log("Generated Text:", generatedText);
             const extractedCommands = await extractGitCommands(generatedText);
             console.log("Extracted Commands:", extractedCommands);
-            const newConversation = { question: question, answer: extractedCommands };
+            const newConversation = { question: question, answer: extractedCommands, time:getTimeString() };
             console.log("New Conversation:", newConversation);
             setActiveConversation([...activeConversation, newConversation]);
             setQuestion("");
             localStorage.setItem("activeConversation", JSON.stringify([...activeConversation, newConversation]));
             setTimeout(scrollToBottom, 0);
         }
+        setIsLoading(false)
     };
 
     const handleQuestionChange = (e) => {
         setQuestion(e.target.value);
+    };
+
+    const getTimeString = () => {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const ampm = hours >= 12 ? "PM" : "AM";
+        const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+        const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+        return `${formattedHours}:${formattedMinutes} ${ampm}`;
     };
 
     return (
@@ -89,8 +70,8 @@ const ChatField = ({ handleChatSave }) => {
                 <div className="chat-conversation-list">
                     {activeConversation.map((conversation, index) => (
                         <div key={index} className="qna-item">
-                            <QnACard key={index + 1} question={conversation.question} isQuestion={true} />
-                            <QnACard key={index + 2} answer={conversation.answer} index={index} />
+                            <QnACard key={index + 1} conversation={conversation} isQuestion={true} />
+                            <QnACard key={index + 2} conversation={conversation} index={index} />
                         </div>
                     ))}
                 </div>
@@ -103,7 +84,7 @@ const ChatField = ({ handleChatSave }) => {
                     value={question}
                     onChange={handleQuestionChange}
                 />
-                <button className="action-button" type="submit">Ask</button>
+                <button className="action-button" type="submit">{isLoading ? <div className="submit-loading"></div> :"Ask"}</button>
                 <button className="action-button" type="button" onClick={handleChatSave}>Save</button>
             </form>
         </div>

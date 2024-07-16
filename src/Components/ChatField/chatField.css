@@ -1,7 +1,7 @@
 .chat-qna-response{
     flex: 1;
     height: 100vh;
-    background: linear-gradient(180deg, rgba(215, 199, 244, 0.2) 0%, rgba(151, 133, 186, 0.2) 100%);
+    /* background: linear-gradient(180deg, rgba(215, 199, 244, 0.2) 0%, rgba(151, 133, 186, 0.2) 100%); */
     padding: 25px;
 }
 .chat-field{
@@ -31,7 +31,7 @@
     font-weight: 500;
     line-height: 32.17px;
     text-align: center;
-    color: #000000;
+    color: #ffffff;
 }
 .logo-ai{
     height: 45px;
@@ -76,6 +76,20 @@
 .action-button:hover{
     cursor: pointer;
 }
+.submit-loading {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #64b751;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    margin: auto;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 @media screen and (max-width: 1280px){
     .input-field{
         width: 90%;
@@ -87,7 +101,8 @@
         width: 456px;
     } */
     .chat-field{
-        width: 90vw;
+        width: 95vw;
+        height: 78vh;
     }
     
 }

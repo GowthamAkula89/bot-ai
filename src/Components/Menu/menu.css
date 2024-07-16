@@ -1,3 +1,6 @@
+.menu-bar-container{
+    background: linear-gradient(180deg, rgba(215, 199, 244, 0.2) 0%, rgba(151, 133, 186, 0.2) 100%);
+}
 .new-chat-btn{
     display: flex;
     justify-content: space-between;
@@ -13,6 +16,7 @@
     flex-direction: column;
     gap: 15px;
     align-items: center;
+    background: linear-gradient(180deg, rgba(215, 199, 244, 0.2) 0%, rgba(151, 133, 186, 0.2) 100%);
 }
 .menu-navbar{
     display: flex;
@@ -46,7 +50,7 @@
     padding: 15px;
 }
 .conversation-item{
-    width: 175.16px;
+    width: 189.16px;
     height: 39px;
     border-radius: 10px;
     font-size: 16px;
@@ -76,8 +80,13 @@
         width: 25vw;
     }
 }
+@media screen and (max-width: 980px){
+    .menu-mobile-view{
+        width: 30vw;
+    }
+}
 @media screen and (max-width: 680px){
     .menu-mobile-view{
-        width: 50vw;
+        width: 60vw;
     }
 }

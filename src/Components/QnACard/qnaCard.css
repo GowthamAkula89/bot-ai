@@ -3,7 +3,7 @@
     display: flex;
     padding: 15px;
     border-radius: 20px;
-    background: #D7C7F421;
+    background: linear-gradient(180deg, rgba(215, 199, 244, 0.2) 0%, rgba(151, 133, 186, 0.2) 100%);
     gap: 15px;
 }
 .chat-type-logo{
@@ -20,7 +20,7 @@
     font-weight: 700;
     line-height: 18.38px;
     text-align: left;
-    color: #000000;
+    color: #c7a8ce;
 }
 .qna-res{
     font-family: Open Sans;
@@ -36,5 +36,5 @@
     font-weight: 400;
     line-height: 16.34px;
     text-align: left;
-    color: rgba(0, 0, 0, 0.62);
+    color: rgb(200 190 190 / 62%);
 }

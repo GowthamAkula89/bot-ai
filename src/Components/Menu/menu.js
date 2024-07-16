@@ -38,7 +38,7 @@ const Menu = ({ handleNewChat, setChatIndex }) => {
     }
 
     return (
-        <div>
+        <div className="menu-bar-container">
             <div className="menu">
                 <div className="new-chat-btn" onClick={handleNewChatAction}>
                     <img style={{ width: "32px", height: "32px" }} src={AiIcon} alt="img" />

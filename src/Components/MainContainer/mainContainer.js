@@ -30,19 +30,10 @@ const MainContainer = () => {
     }
    }
 
-   const handleChatSave = () => {
-    if(chatIndex !== -1){
-        const chatHistory = JSON.parse(localStorage.getItem("chatHistory"))
-        chatHistory[chatIndex] = activeConversation;
-        console.log("chatHistory",chatHistory)
-        localStorage.setItem("chatHistory",JSON.stringify(chatHistory));
-        setConversations(chatHistory);
-    }  
-   }
     return(
         <div className="chatbot-page">
             <Menu handleNewChat={handleNewChat} setChatIndex={setChatIndex}/>
-            <ChatField handleChatSave={handleChatSave}/>
+            <ChatField handleChatSave={handleNewChat}/>
         </div>
     )
 }

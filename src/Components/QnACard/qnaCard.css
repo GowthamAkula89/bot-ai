@@ -1,11 +1,14 @@
 .qna-card{
-    height: 95px;
+    height: 100%;
     display: flex;
-    align-items: center;
     padding: 15px;
     border-radius: 20px;
     background: #D7C7F421;
     gap: 15px;
+}
+.chat-type-logo{
+    width: 45px;
+    height: 45px;
 }
 .qna-section{
     display: flex;

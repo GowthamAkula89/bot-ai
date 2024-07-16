@@ -15,13 +15,16 @@ const QnACard = ({ question, answer, isQuestion, index }) => {
         return `${formattedHours}:${formattedMinutes} ${ampm}`;
     };
    
-
     return (
         <div className="qna-card">
-            <img src={isQuestion ? UserIcon : AiIcon} alt="" />
+            <img src={isQuestion ? UserIcon : AiIcon} alt="" className="chat-type-logo"/>
             <div className="qna-section">
                 <div className="qna-user">{isQuestion ? "You" : "Bot AI"}</div>
-                <div className="qna-res">{isQuestion ? question : answer}</div>
+                <div className="qna-res">{isQuestion ? question : 
+                answer.map((command, idx) => (
+                    <p key={idx}>{command}</p>
+                ))}
+                </div>
                 <div className="qna-date">{getTimeString()}</div>
             </div>
         </div>

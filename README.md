@@ -25,15 +25,10 @@
 - Successfully used the meta-llama/Meta-Llama-3-8B-Instruct model to get text-based responses. but I want only commands to display and do some actions.
 - Needed responses as commands, so adjusted the model to retrieve only commands.
 
-- VSCode Integration:
-    - Faced challenges inserting the generated commands into the integrated terminal of the VSCode window.
-    - Reviewed the Visual Studio Code documentation and started implementing an extension, but it did not work as expected. So I searched for additional resources to connect the application to VSCode. due to time constraints, had to stop implementing this part.
-
 ### Learnings
 
 - Gained knowledge about LLM and NLP, how they work, and how they are trained.
 - Learned about different APIs and their usage.
-- Understood the complexity of integrating generated commands into an IDE like VSCode.
 
 ## Getting Started
 

@@ -37,7 +37,7 @@ const ChatField = ({ handleChatSave }) => {
         for await (const chunk of inference.chatCompletionStream({
             model: "meta-llama/Meta-Llama-3-8B-Instruct",
             messages: [{ role: "user", content: question }],
-            max_tokens: 500,
+            max_tokens: 350,
         })) {
             const content = chunk.choices[0]?.delta?.content || "";
             fullResponse += content;

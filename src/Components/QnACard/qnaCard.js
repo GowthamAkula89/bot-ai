@@ -4,7 +4,7 @@ import UserIcon from "../../Assets/user-icon.png";
 import AiIcon from "../../Assets/ai-icon.png";
 const QnACard = ({ question, partialResponse, conversation, isQuestion, active }) => {
     const cleanCommand = (command) => {
-        return command.replace(/[^\w\s]/g, '').trim();
+        return command.replace(/[^\w\s.]/g, '').trim();
     };
 
     return (

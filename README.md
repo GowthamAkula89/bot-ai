@@ -9,6 +9,7 @@
 ## Technologies Used
 
 - React
+- JavaScript
 - Context API
 - Converse with Hugging Face LLM
 - used "meta-llama/Meta-Llama-3-8B-Instruct" to interact
@@ -19,11 +20,10 @@
 - As I am new to LLM and NLP concepts, I started learning about them to understand how to implement these technologies.
 - Discovered various LLM and NLP APIs.
 - I Choose OpenAI as the first API to implement, following the OpenAI Quickstart Guide i.e. https://platform.openai.com/docs/quickstart.
-- Implemented a backend to make requests to OpenAI and retrieve responses. but I faced many issues, then I fixed. After all its thowing error with rate limits and exceeded limits, so decided to explore other options.
+- Implemented a backend to make requests to OpenAI and retrieve responses. After implementing and fixing the issues, its thrown error with rate limits and exceeded limits, so decided to explore other options.
 - Then I found Hugging Face API with many available models but was confused about which model to use.
 - Tested multiple models; the first five showed errors due to large data.
-- Successfully used the meta-llama/Meta-Llama-3-8B-Instruct model to get text-based responses. but I want only commands to display and do some actions.
-- Needed responses as commands, so adjusted the model to retrieve only commands.
+- Successfully used the meta-llama/Meta-Llama-3-8B-Instruct model to get text-based responses.
 
 ### Learnings
 

@@ -3,14 +3,17 @@ import "./chatField.css";
 import { DataContext } from "../../ContextAPI/dataContext";
 import AiIcon from "../../Assets/ai-icon.png";
 import QnACard from "../QnACard/qnaCard";
-import generateText from "../../apis/generateText";
-import extractGitCommands from "../../apis/generateGitCommands";
+import { HfInference } from "@huggingface/inference";
 
 const ChatField = ({ handleChatSave }) => {
     const { activeConversation, setActiveConversation } = useContext(DataContext);
     const [question, setQuestion] = useState("");
     const chatFieldRef = useRef(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [partialResponse, setPartialResponse] = useState("");
+    const [isQuestionAsked, setIsQuestionAsked] = useState(false);
+    const [activeQuestion, setActiveQuestion] = useState("");
+
     useEffect(() => {
         const savedActiveConversation = JSON.parse(localStorage.getItem("activeConversation")) || [];
         setActiveConversation(savedActiveConversation);
@@ -27,22 +30,39 @@ const ChatField = ({ handleChatSave }) => {
         }
     };
 
-    const handleSubmit = async (e) => {
-        setIsLoading(true);
-        e.preventDefault();
-        if (question.trim() !== "") {
-            const generatedText = await generateText(question);
-            console.log("Generated Text:", generatedText);
-            const extractedCommands = await extractGitCommands(generatedText);
-            console.log("Extracted Commands:", extractedCommands);
-            const newConversation = { question: question, answer: extractedCommands, time:getTimeString() };
-            console.log("New Conversation:", newConversation);
-            setActiveConversation([...activeConversation, newConversation]);
-            setQuestion("");
-            localStorage.setItem("activeConversation", JSON.stringify([...activeConversation, newConversation]));
-            setTimeout(scrollToBottom, 0);
+    const generateText = async (question) => {
+        const inference = new HfInference("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");
+        let fullResponse = "";
+
+        for await (const chunk of inference.chatCompletionStream({
+            model: "meta-llama/Meta-Llama-3-8B-Instruct",
+            messages: [{ role: "user", content: question }],
+            max_tokens: 500,
+        })) {
+            const content = chunk.choices[0]?.delta?.content || "";
+            fullResponse += content;
+            setPartialResponse(fullResponse.trim());
+            scrollToBottom();
         }
-        setIsLoading(false)
+        return fullResponse.trim().split('\n');
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setActiveQuestion(question);
+        setIsQuestionAsked(true);
+        setIsLoading(true);
+        const generatedText = await generateText(question);
+        //Making Chat update and reponse as expected
+        setIsQuestionAsked(false);
+        setActiveQuestion("");
+        const newConversation = { question: question, answer: generatedText, time: getTimeString() };
+        console.log("New Conversation:", newConversation);
+        setActiveConversation([...activeConversation, newConversation]);
+        setQuestion("");
+        setPartialResponse("")
+        localStorage.setItem("activeConversation", JSON.stringify([...activeConversation, newConversation]));
+        setIsLoading(false);
     };
 
     const handleQuestionChange = (e) => {
@@ -70,10 +90,16 @@ const ChatField = ({ handleChatSave }) => {
                 <div className="chat-conversation-list">
                     {activeConversation.map((conversation, index) => (
                         <div key={index} className="qna-item">
-                            <QnACard key={index + 1} conversation={conversation} isQuestion={true} />
-                            <QnACard key={index + 2} conversation={conversation} index={index} />
+                            <QnACard key={`q-${index}`} conversation={conversation} isQuestion={true} />
+                            <QnACard key={`a-${index}`} conversation={conversation} isQuestion={false} />
                         </div>
                     ))}
+                    {isQuestionAsked && (
+                        <>
+                            <QnACard key="active-question" question={activeQuestion} isQuestion={true} active={true} />
+                            <QnACard key="active-answer" partialResponse={partialResponse} isQuestion={false} active={true} />
+                        </>
+                    )}
                 </div>
             </div>
             <form className="input-field" onSubmit={handleSubmit}>
@@ -84,7 +110,7 @@ const ChatField = ({ handleChatSave }) => {
                     value={question}
                     onChange={handleQuestionChange}
                 />
-                <button className="action-button" type="submit">{isLoading ? <div className="submit-loading"></div> :"Ask"}</button>
+                <button className="action-button" type="submit">{isLoading ? <div className="submit-loading"></div> : "Ask"}</button>
                 <button className="action-button" type="button" onClick={handleChatSave}>Save</button>
             </form>
         </div>

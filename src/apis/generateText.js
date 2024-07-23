@@ -1,7 +1,7 @@
 import { HfInference } from "@huggingface/inference";
 const generateText = async (question) => {
     const inference = new HfInference("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");
-    const prompt = `Convert the following query to an appropriate Git command:\nQuery: ${question}\nGit command:`;
+    const prompt = `Convert the following query :\nQuery: ${question}\n:`;
     let fullResponse = "";
 
     for await (const chunk of inference.chatCompletionStream({
@@ -12,6 +12,6 @@ const generateText = async (question) => {
         const content = chunk.choices[0]?.delta?.content || "";
         fullResponse += content;
     }
-    return fullResponse.trim();
+    return fullResponse.trim().split('/n');
 };
 export default generateText;

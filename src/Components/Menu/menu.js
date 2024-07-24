@@ -1,11 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import "./menu.css";
 import AiIcon from "../../Assets/ai-icon.png";
 import EditIcon from "../../Assets/edit.png";
-import { DataContext } from "../../ContextAPI/dataContext";
+//import { DataContext } from "../../ContextAPI/dataContext";
 import { RiDeleteBinFill } from "react-icons/ri";
+import { setActiveConversation, deleteConversation, clearActiveConversation } from "../../redux/Reducers/chatReducer";
+import { useSelector, useDispatch } from "react-redux";
+
 const Menu = ({ handleNewChat, setChatIndex }) => {
-    const {activeConversation, setActiveConversation, conversations, setConversations } = useContext(DataContext);
+    //const {activeConversation, setActiveConversation, conversations, setConversations } = useContext(DataContext);
+    const activeConversation = useSelector((state) => state.chat.activeConversation);
+    const conversations = useSelector((state) => state.chat.conversations);
+    const dispatch = useDispatch();
     const [menuOpen, setMenuOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -14,8 +20,7 @@ const Menu = ({ handleNewChat, setChatIndex }) => {
 
     const handleChat = (index) => {
         return () => {
-            // console.log("conversationlist", conversations[index]);
-            setActiveConversation(conversations[index]);
+            dispatch(setActiveConversation(conversations[index]));
             localStorage.setItem("activeConversation",JSON.stringify(activeConversation));
             setChatIndex(index);
             setMenuOpen(false);
@@ -23,13 +28,10 @@ const Menu = ({ handleNewChat, setChatIndex }) => {
     };
     
     const handleDelete = (index) => {
-        const chatHistory = JSON.parse(localStorage.getItem("chatHistory"));
-        chatHistory.splice(index, 1);
-        console.log(chatHistory);
-        localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
-        setConversations(chatHistory);
-        setActiveConversation([]);
-        localStorage.setItem("activeConversation",JSON.stringify([]));
+        dispatch(deleteConversation(index));
+        localStorage.setItem("chatHistory", JSON.stringify(conversations));
+        dispatch(clearActiveConversation());
+        localStorage.setItem("activeConversation", JSON.stringify([]));
     }
 
     const handleNewChatAction = () => {

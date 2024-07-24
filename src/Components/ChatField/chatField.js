@@ -39,6 +39,7 @@ const ChatField = ({ handleChatSave }) => {
         for await (const chunk of inference.chatCompletionStream({
             model: "meta-llama/Meta-Llama-3-8B-Instruct",
             messages: [{ role: "user", content: question }],
+            max_tokens: 350
         })) {
             const content = chunk.choices[0]?.delta?.content || "";
             const cleanContent = content.replace(/\*/g, '');
@@ -58,8 +59,7 @@ const ChatField = ({ handleChatSave }) => {
     
     // Helper function to check if the response is complete
     const isCompleteResponse = (response) => {
-        const endingPunctuation = /[.!?]$/; // Matches sentences ending in . ! or ?
-        return endingPunctuation.test(response.trim());
+        return /[.!?]$/.test(response.trim());
     };
     
     // Function to generate additional text if needed
